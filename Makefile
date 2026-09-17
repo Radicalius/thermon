@@ -2,6 +2,7 @@ build:
 	go build -o thermon ./src
 
 install:
+	-systemctl stop thermon
 	cp thermon /usr/local/bin
 
 	if ! id -u thermon >/dev/null 2>&1; then \
@@ -14,6 +15,7 @@ install:
 	cp thermon.service /etc/systemd/system
 	systemctl daemon-reload
 	systemctl enable thermon
+	systemctl start thermon
 
 clean:
 	rm thermon
